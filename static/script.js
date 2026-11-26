@@ -93,9 +93,10 @@ class VoiceChat {
     }
     
     initWebSocket() {
-        // Use wss:// if your site uses HTTPS, otherwise use ws://
         const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-        const wsUrl = `ws://localhost:8000/ws/chat`;
+        const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+        const wsHost = isLocal ? 'localhost:8000' : window.location.host;
+        const wsUrl = `${protocol}://${wsHost}/ws/chat`;
         
         this.socket = new WebSocket(wsUrl);
         
